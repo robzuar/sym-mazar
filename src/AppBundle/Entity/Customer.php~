@@ -1,0 +1,68 @@
+<?php
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
+/**
+ * Class Customer
+ * @package AppBundle\Entity
+ * @ORM\Entity
+ * @ORM\Table(name="Customer")
+ */
+class Customer extends User
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column (name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue (strategy="AUTO")
+     */
+    protected $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column (name="rut", type="string", length=25)
+     * @Assert\NotBlank ()
+     * @Assert\Length (min=8)
+     */
+    private $rut;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column (name="phone", type="string", length=12)
+     * @Assert\NotBlank ()
+     */
+    private $phone;
+
+    /**
+     * @var Address
+     *
+     * @ORM\OneToMany(targetEntity="Address", mappedBy="customer", cascade={"persist"}, orphanRemoval=true)
+     */
+    private $address;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created_at", type="datetime")
+     */
+    private $createdAt;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="updated_at", type="datetime")
+     */
+    private $updatedAt;
+
+    /**
+     * @var User
+     *
+     * @ORM\OneToOne (targetEntity="User")
+     */
+    private $user;
+}
